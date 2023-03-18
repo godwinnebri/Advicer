@@ -1,12 +1,26 @@
 import 'package:adviser_app/2_application/core/services/theme_service.dart';
 import 'package:adviser_app/2_application/core/widgets/custom_button.dart';
+import 'package:adviser_app/2_application/pages/advice/bloc/adviser_bloc.dart';
 import 'package:adviser_app/2_application/pages/advice/widgets/advice_field.dart';
+import 'package:adviser_app/2_application/pages/advice/widgets/advice_loading.dart';
 import 'package:adviser_app/2_application/pages/advice/widgets/error_message.dart';
 import 'package:adviser_app/2_application/pages/advice/widgets/welcome_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
+class AdvicePageWrapperProvider extends StatelessWidget {
+  const AdvicePageWrapperProvider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AdviserBloc(),
+      child: const AdvicePage(),
+    );
+  }
+}
 
 class AdvicePage extends StatelessWidget {
   const AdvicePage({super.key});
@@ -36,30 +50,33 @@ class AdvicePage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(24, 40, 24, 30),
         child: Column(
           children: [
-            Expanded(child: WelcomeField(themeData: themeData)
-                //     ErrorMessage(
-                //   themeData: themeData,
-                //   message: 'You are not connected to the internet',
-                // )
-
-                //     AdviceField(
-                //   advice: 'Make sure you stfoijfijsiojfi',
-                //   themeData: themeData,
-                // )
-
-                // Center(
-                //   child: CircularProgressIndicator(
-                //     color: themeData.colorScheme.secondary,
-                //   ),
-                // ),
-
-                ),
+            Expanded(
+              child: BlocBuilder<AdviserBloc, AdviserState>(
+                builder: (context, state) {
+                  return state is AdviserInitial
+                      ? WelcomeField(themeData: themeData)
+                      : state is AdviseLoading
+                          ? AdviseLoadingWidget(themeData: themeData)
+                          : state is AdviseLoaded
+                              ? AdviceField(
+                                  advice: state.advice,
+                                  themeData: themeData,
+                                )
+                              : state is AdviseError
+                                  ? ErrorMessage(
+                                      themeData: themeData,
+                                      message: state.error)
+                                  : const CircularProgressIndicator();
+                },
+              ),
+            ),
             SizedBox(
               height: 160,
               child: Center(
                 child: CustomButton(
                   text: 'Get Advise',
-                  onPressed: () {},
+                  onPressed: () => BlocProvider.of<AdviserBloc>(context)
+                      .add(AdviseRequestEvent()),
                 ),
               ),
             ),
