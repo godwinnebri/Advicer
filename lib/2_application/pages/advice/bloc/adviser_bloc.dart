@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +13,7 @@ class AdviserBloc extends Bloc<AdviserEvent, AdviserState> {
       emit(AdviseLoading());
       //execute business logic eg get advice
       debugPrint('fake get advice triggered');
-      await Future.delayed(Duration(seconds: 3), () {});
+      await Future.delayed(const Duration(seconds: 3), () {});
       debugPrint('got advice');
       emit(AdviseLoaded(advice: 'Fake advice to test bloc'));
     });

@@ -1,6 +1,6 @@
 import 'package:adviser_app/2_application/core/services/theme_service.dart';
 import 'package:adviser_app/2_application/core/widgets/custom_button.dart';
-import 'package:adviser_app/2_application/pages/advice/bloc/adviser_bloc.dart';
+import 'package:adviser_app/2_application/pages/advice/cubit/adviser_cubit_cubit.dart';
 import 'package:adviser_app/2_application/pages/advice/widgets/advice_field.dart';
 import 'package:adviser_app/2_application/pages/advice/widgets/advice_loading.dart';
 import 'package:adviser_app/2_application/pages/advice/widgets/error_message.dart';
@@ -16,7 +16,7 @@ class AdvicePageWrapperProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AdviserBloc(),
+      create: (context) => AdviserCubit(),
       child: const AdvicePage(),
     );
   }
@@ -51,18 +51,18 @@ class AdvicePage extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: BlocBuilder<AdviserBloc, AdviserState>(
+              child: BlocBuilder<AdviserCubit, AdviserCubitState>(
                 builder: (context, state) {
-                  return state is AdviserInitial
+                  return state is AdviseStateInitial
                       ? WelcomeField(themeData: themeData)
-                      : state is AdviseLoading
+                      : state is AdviseStateLoading
                           ? AdviseLoadingWidget(themeData: themeData)
-                          : state is AdviseLoaded
+                          : state is AdviseStateLoaded
                               ? AdviceField(
-                                  advice: state.advice,
                                   themeData: themeData,
+                                  advice: state.advice,
                                 )
-                              : state is AdviseError
+                              : state is AdviseStateError
                                   ? ErrorMessage(
                                       themeData: themeData,
                                       message: state.error)
@@ -74,10 +74,9 @@ class AdvicePage extends StatelessWidget {
               height: 160,
               child: Center(
                 child: CustomButton(
-                  text: 'Get Advise',
-                  onPressed: () => BlocProvider.of<AdviserBloc>(context)
-                      .add(AdviseRequestEvent()),
-                ),
+                    text: 'Get Advise',
+                    onPressed: () => BlocProvider.of<AdviserCubit>(context)
+                        .adviseRequested()),
               ),
             ),
           ],

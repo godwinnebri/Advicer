@@ -32,19 +32,17 @@ class AdviseLoadingWidget extends StatelessWidget {
         child: Shimmer.fromColors(
           baseColor: Colors.grey.withOpacity(0.1),
           highlightColor: Colors.white.withOpacity(0.5),
-          child: Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                SkeletonLoader(width: 300),
-                SkeletonLoader(width: 300),
-                SkeletonLoader(width: 250),
-                SkeletonLoader(width: 300),
-                SkeletonLoader(width: 200),
-                SkeletonLoader(width: 300),
-                SkeletonLoader(width: 180),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              SkeletonLoader(width: 300),
+              SkeletonLoader(width: 300),
+              SkeletonLoader(width: 250),
+              SkeletonLoader(width: 300),
+              SkeletonLoader(width: 200),
+              SkeletonLoader(width: 300),
+              SkeletonLoader(width: 180),
+            ],
           ),
         ),
       ),
