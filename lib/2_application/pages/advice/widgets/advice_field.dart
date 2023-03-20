@@ -30,7 +30,7 @@ class AdviceField extends StatelessWidget {
         color: themeData.colorScheme.primaryContainer,
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(34, 10, 34, 10),
+        padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 10),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -40,13 +40,11 @@ class AdviceField extends StatelessWidget {
                   '📝',
                   style: TextStyle(fontSize: 54),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(34, 20, 34, 40),
-                  child: Text(
-                    advice,
-                    style: themeData.textTheme.bodyText2,
-                    textAlign: TextAlign.center,
-                  ),
+                const SizedBox(height: 10),
+                Text(
+                  advice,
+                  style: themeData.textTheme.bodyText2,
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),

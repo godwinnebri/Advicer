@@ -9,7 +9,13 @@ class AdviseRepoImpl implements AdviseRepo {
       AdviseRemoteDataSourceImpl();
   @override
   Future<Either<Failure, AdviceEntity>> getAdviseFromDataSource() async {
-    final result = await adviseRemoteDataSource.getRandomAdviseFromApi();
-    return right(result);
+    try {
+      final result = await adviseRemoteDataSource.getRandomAdviseFromApi();
+      return right(result);
+    } on ServerError catch (_) {
+      return left(ServerError());
+    } catch (e) {
+      return left(GeneralError());
+    }
   }
 }
