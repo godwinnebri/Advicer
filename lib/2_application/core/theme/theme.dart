@@ -40,7 +40,7 @@ class AppTheme {
       fontFamily: "Rubik",
       // fontStyle: FontStyle.italic,
       fontWeight: FontWeight.bold,
-      fontSize: 28);
+      fontSize: 24);
 
   static const TextTheme _lightTextTheme = TextTheme(
     headline1: _lightHeadingText,
