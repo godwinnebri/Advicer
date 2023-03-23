@@ -1,10 +1,15 @@
 import 'package:adviser_app/2_application/core/services/theme_service.dart';
 import 'package:adviser_app/2_application/core/theme/theme.dart';
-import 'package:adviser_app/2_application/pages/advice/adviice_page.dart';
+import 'package:adviser_app/2_application/pages/advice/advice_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 
-void main() {
+import 'injection.dart' as di; // dependency injection
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(
     ChangeNotifierProvider(
       create: ((context) => ThemeService()),

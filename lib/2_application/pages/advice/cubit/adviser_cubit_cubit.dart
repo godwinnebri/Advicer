@@ -13,8 +13,9 @@ const String cacheErrorMessage = 'Oops, cache failed. Try again';
 const String generalErrorMessage = 'Oops, something is wrong, try again';
 
 class AdviserCubit extends Cubit<AdviserCubitState> {
-  AdviserCubit() : super(AdviseStateInitial());
-  final AdviseUseCases adviseUseCases = AdviseUseCases();
+  final AdviseUseCases adviseUseCases;
+
+  AdviserCubit({required this.adviseUseCases}) : super(AdviseStateInitial());
 
   void adviseRequested() async {
     emit(AdviseStateLoading());
