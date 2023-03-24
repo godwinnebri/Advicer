@@ -1,26 +1,26 @@
 part of 'adviser_bloc.dart';
 
 @immutable
-abstract class AdviserState extends Equatable {
+abstract class AdvicerState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-class AdviserInitial extends AdviserState {}
+class AdvicerInitial extends AdvicerState {}
 
-class AdviseLoading extends AdviserState {}
+class AdviceLoading extends AdvicerState {}
 
-class AdviseLoaded extends AdviserState {
+class AdviceLoaded extends AdvicerState {
   final String advice;
-  AdviseLoaded({required this.advice});
+  AdviceLoaded({required this.advice});
 
   @override
   List<Object?> get props => [advice];
 }
 
-class AdviseError extends AdviserState {
+class AdviceError extends AdvicerState {
   final String error;
-  AdviseError({required this.error});
+  AdviceError({required this.error});
 
   @override
   List<Object?> get props => [error];

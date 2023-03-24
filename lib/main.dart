@@ -3,7 +3,6 @@ import 'package:adviser_app/2_application/core/theme/theme.dart';
 import 'package:adviser_app/2_application/pages/advice/advice_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:get_it/get_it.dart';
 
 import 'injection.dart' as di; // dependency injection
 
