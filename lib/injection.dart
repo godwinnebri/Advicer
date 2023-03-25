@@ -17,11 +17,11 @@ Future<void> init() async {
 
   //* Data layer
   sl.registerFactory<AdviceRepo>(
-      () => AdviceRepoImpl(adviceRemoteDataSource: sl()));
+      () => AdviceRepoImpl(adviceRemoteDatasource: sl()));
 
   sl.registerFactory<AdviceRemoteDataSource>(
       () => AdviceRemoteDataSourceImpl(client: sl()));
 
   //! External
-  sl.registerFactory(() => http.Client);
+  sl.registerFactory(() => http.Client());
 }
