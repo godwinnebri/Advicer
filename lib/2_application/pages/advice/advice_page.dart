@@ -9,6 +9,7 @@ import 'package:adviser_app/injection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class AdvicePageWrapperProvider extends StatelessWidget {
@@ -36,15 +37,37 @@ class AdvicePage extends StatelessWidget {
           style: themeData.textTheme.headline1,
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(24),
-            child: CupertinoSwitch(
-              value: Provider.of<ThemeService>(context).isDarkModeOn,
-              onChanged: ((value) {
-                Provider.of<ThemeService>(context, listen: false).toggleTheme();
-              }),
+          GestureDetector(
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.only(right: 24),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Provider.of<ThemeService>(context).isDarkModeOn
+                    ? Colors.white.withOpacity(0.1)
+                    : Colors.grey.withOpacity(0.1),
+              ),
+              child: Center(
+                child: Provider.of<ThemeService>(context).isDarkModeOn
+                    ? const Icon(
+                        Iconsax.sun_1,
+                        size: 28,
+                      )
+                    : const Icon(Iconsax.moon, color: Colors.black),
+              ),
             ),
-          )
+            onTap: () =>
+                Provider.of<ThemeService>(context, listen: false).toggleTheme(),
+          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(24),
+          //   child: CupertinoSwitch(
+          //     value: Provider.of<ThemeService>(context).isDarkModeOn,
+          //     onChanged: ((value) {
+          //       Provider.of<ThemeService>(context, listen: false).toggleTheme();
+          //     }),
+          //   ),
+          // )
         ],
       ),
       body: Padding(
@@ -75,7 +98,7 @@ class AdvicePage extends StatelessWidget {
               height: 160,
               child: Center(
                 child: CustomButton(
-                    text: 'Get Advise',
+                    text: 'Get Advice',
                     onPressed: () => BlocProvider.of<AdvicerCubit>(context)
                         .adviceRequested()),
               ),
