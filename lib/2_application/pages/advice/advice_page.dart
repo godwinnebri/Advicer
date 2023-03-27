@@ -39,22 +39,18 @@ class AdvicePage extends StatelessWidget {
         actions: [
           GestureDetector(
             child: Container(
-              padding: const EdgeInsets.all(16),
-              margin: const EdgeInsets.only(right: 24),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(right: 24, top: 2),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Provider.of<ThemeService>(context).isDarkModeOn
                     ? Colors.white.withOpacity(0.1)
                     : Colors.grey.withOpacity(0.1),
               ),
-              child: Center(
-                child: Provider.of<ThemeService>(context).isDarkModeOn
-                    ? const Icon(
-                        Iconsax.sun_1,
-                        size: 28,
-                      )
-                    : const Icon(Iconsax.moon, color: Colors.black),
-              ),
+              child: Provider.of<ThemeService>(context).isDarkModeOn
+                  ? const Icon(Iconsax.sun_1)
+                  : const Icon(Iconsax.moon, color: Colors.black),
             ),
             onTap: () =>
                 Provider.of<ThemeService>(context, listen: false).toggleTheme(),
@@ -70,40 +66,43 @@ class AdvicePage extends StatelessWidget {
           // )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 40, 24, 30),
-        child: Column(
-          children: [
-            Expanded(
-              child: BlocBuilder<AdvicerCubit, AdvicerCubitState>(
-                builder: (context, state) {
-                  return state is AdviceStateInitial
-                      ? WelcomeField(themeData: themeData)
-                      : state is AdviceStateLoading
-                          ? AdviseLoadingWidget(themeData: themeData)
-                          : state is AdviceStateLoaded
-                              ? AdviceField(
-                                  themeData: themeData,
-                                  advice: state.advice,
-                                )
-                              : state is AdviceStateError
-                                  ? ErrorMessage(
-                                      themeData: themeData,
-                                      message: state.error)
-                                  : const CircularProgressIndicator();
-                },
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: BlocBuilder<AdvicerCubit, AdvicerCubitState>(
+                  builder: (context, state) {
+                    return state is AdviceStateInitial
+                        ? WelcomeField(themeData: themeData)
+                        : state is AdviceStateLoading
+                            ? AdviseLoadingWidget(themeData: themeData)
+                            : state is AdviceStateLoaded
+                                ? AdviceField(
+                                    themeData: themeData,
+                                    advice: state.advice,
+                                  )
+                                : state is AdviceStateError
+                                    ? ErrorMessage(
+                                        themeData: themeData,
+                                        message: state.error)
+                                    : const CircularProgressIndicator();
+                  },
+                ),
               ),
-            ),
-            SizedBox(
-              height: 160,
-              child: Center(
-                child: CustomButton(
-                    text: 'Get Advice',
-                    onPressed: () => BlocProvider.of<AdvicerCubit>(context)
-                        .adviceRequested()),
+              SizedBox(
+                height: 100,
+                child: Center(
+                  child: CustomButton(
+                      text: 'Get Advice',
+                      onPressed: () => BlocProvider.of<AdvicerCubit>(context)
+                          .adviceRequested()),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
