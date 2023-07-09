@@ -11,7 +11,7 @@ class AppTheme {
   static const Color _appbarColorLight = Colors.white;
 
   static const Color _darkBackgroundColor = Color(0xff020617);
-  static const Color _darkContainerColor = const Color(0xff161B2F);
+  static const Color _darkContainerColor =  Color(0xff161B2F);
   static const Color _darkPrimaryColor = Color(0xff1D1C68);
   static final Color _darkOnPrimaryColor = Colors.blueGrey.shade300;
   static const Color _darkTextColorPrimary = Colors.white;

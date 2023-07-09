@@ -1,10 +1,7 @@
-import 'package:adviser_app/1_domain/entities/advice_entites.dart';
 import 'package:adviser_app/1_domain/failures/failures.dart';
 import 'package:adviser_app/1_domain/usecases/advice_usecases.dart';
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 part 'advicer_cubit_state.dart';
 
@@ -23,7 +20,7 @@ class AdvicerCubit extends Cubit<AdvicerCubitState> {
 
     failureOrAdvice.fold(
       (failure) => emit(AdviceStateError(error: _mapFailureToMessage(failure))),
-      (advise) => emit(AdviceStateLoaded(advice: advise.advise)),
+      (advice) => emit(AdviceStateLoaded(advice: advice.advise)),
     );
   }
 

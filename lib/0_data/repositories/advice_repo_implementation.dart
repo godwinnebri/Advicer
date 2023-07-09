@@ -1,4 +1,4 @@
-import 'package:adviser_app/0_data/data_sources/advise_remote_datasource.dart';
+import 'package:adviser_app/0_data/data_sources/advice_remote_datasource.dart';
 import 'package:adviser_app/1_domain/failures/failures.dart';
 import 'package:adviser_app/1_domain/entities/advice_entites.dart';
 import 'package:adviser_app/1_domain/reposiitories/advice_repo.dart';
